@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
@@ -15,9 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.*
 
 
 @Composable
@@ -43,7 +44,8 @@ fun IconTextField(
         onValueChange = {
             text = it
         },
-        modifier = Modifier.fillMaxWidth(0.80f)
+        modifier = Modifier.fillMaxWidth(0.80f),
+        singleLine = true
     )
 }
 
@@ -53,7 +55,7 @@ fun PasswordTextField(
 ) {
     val focusManager = LocalFocusManager.current
     var text by remember { mutableStateOf(TextFieldValue("")) }
-    val showPassword by remember{ mutableStateOf(false) }
+    val showPassword = remember{ mutableStateOf(false) }
     getPassword(text.text)
 
     OutlinedTextField(
@@ -74,6 +76,30 @@ fun PasswordTextField(
                 focusManager.clearFocus()
             }
         ),
-        modifier = Modifier.fillMaxWidth(0.80f)
+        modifier = Modifier.fillMaxWidth(0.80f),
+        singleLine = true,
+        visualTransformation = if (showPassword.value) {
+            VisualTransformation.None
+        }
+        else {
+            PasswordVisualTransformation()
+        },
+        trailingIcon = {
+            val (icon, iconColor) = if (showPassword.value) {
+                Pair(
+                    painterResource(id = R.drawable.ic_visibility),
+                    colorResource(id = R.color.purple_500)
+                )
+            }
+            else {
+                Pair(
+                    painterResource(id = R.drawable.ic_visibility_off),
+                    colorResource(id = R.color.purple_700)
+                )
+            }
+            IconButton(onClick = { showPassword.value = !showPassword.value }) {
+                Icon(painter = icon, contentDescription = "Visibility", tint = iconColor)
+            }
+        }
     )
 }
