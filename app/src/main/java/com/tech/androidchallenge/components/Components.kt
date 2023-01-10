@@ -19,6 +19,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.*
+import androidx.compose.runtime.saveable.rememberSaveable
 
 
 @Composable
@@ -27,10 +28,14 @@ fun IconTextField(
     placeholder: String,
     icon: ImageVector,
     keyboardType: KeyboardType,
-    getText:(String) -> Unit
+    getText:(String) -> Unit,
+    isDescription: Boolean = false,
+    initText: String = ""
 ) {
-    var text by remember { mutableStateOf(TextFieldValue("")) }
-    getText(text.text)
+    /*var text by remember { mutableStateOf(TextFieldValue("")) }
+    getText(text.text)*/
+    var text by rememberSaveable { mutableStateOf(initText) }
+    getText(text)
 
     OutlinedTextField(
         value = text,
@@ -45,7 +50,7 @@ fun IconTextField(
             text = it
         },
         modifier = Modifier.fillMaxWidth(0.80f),
-        singleLine = true
+        singleLine = !isDescription
     )
 }
 
@@ -54,9 +59,11 @@ fun PasswordTextField(
     getPassword:(String) -> Unit
 ) {
     val focusManager = LocalFocusManager.current
-    var text by remember { mutableStateOf(TextFieldValue("")) }
     val showPassword = remember{ mutableStateOf(false) }
-    getPassword(text.text)
+    /*var text by remember { mutableStateOf(TextFieldValue("")) }
+    getPassword(text.text)*/
+    var text by rememberSaveable { mutableStateOf("") }
+    getPassword(text)
 
     OutlinedTextField(
         value = text,

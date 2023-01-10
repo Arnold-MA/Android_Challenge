@@ -84,21 +84,6 @@ fun Login(navController: NavHostController) {
                             showAlert(context, 6)
                         }
                     }
-
-                    /*scope.launch {
-                        val userResult = userDao.getUserByUsernameAndPassword(username = username, password = password)
-                        if (userResult != null){
-                            //scope.launch {
-                                dataStore.saveUser(userResult)
-                            //}
-                            navController.popBackStack()
-                            navController.navigate(AppScreens.MainScreen.route)
-                        }
-                        else {
-                            showAlert(context, 6)
-                        }
-                    }*/
-
                 }
             },
             elevation = ButtonDefaults.elevation(
