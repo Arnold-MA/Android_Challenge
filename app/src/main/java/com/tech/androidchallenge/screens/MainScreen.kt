@@ -38,7 +38,8 @@ fun MainScreen(navController: NavHostController) {
     val menuItems = listOf(
         Home,
         ProductsList,
-        ProductAdd
+        ProductAdd,
+        PostsList
     )
 
     Scaffold(

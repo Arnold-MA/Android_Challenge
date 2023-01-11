@@ -37,6 +37,10 @@ fun MenuNavigation(
                     setTitle(ProductsList.title)
                     ProductListScreen(navController)
                 }
+                composable(PostsList.route) {
+                    setTitle(PostsList.title)
+                    PostList(navController = navController)
+                }
                 composable(ProductAdd.route) {
                     setTitle(ProductAdd.title)
                     AddProductScreen(navController)
