@@ -15,7 +15,7 @@ class PostService {
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
-    val service = retrofit.create<PostAPI>(PostAPI::class.java)
+    val service = retrofit.create(PostAPI::class.java)
 
     suspend fun getAllPosts() : List<Post>? {
         /*var posts: List<Post>? = null
